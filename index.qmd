@@ -15,6 +15,7 @@ authors:
     roles: writing, model development
     corresponding: true
     email: maturner@stanford.edu
+  - name: Aja Sutton
   - name: Izabela Rezende
   - name: Benjamin Singer
   - name: Hannah S. Derwanz
@@ -22,11 +23,13 @@ authors:
     affiliation: Stanford University Doerr School of Sustainability
     roles: writing
     corresponding: true
-bibliography: ../library.bib
+# bibliography: [this.bib, ../library.bib]
+bibliography: this.bib
 classoption: abstract
 keep-tex: true
 abstract: |
-  This is the abstract
+  \noindent Disease transmission leading to pandemics depends on who interacts with whom, but we currently lack a rigorous general understanding of exactly how. Metapopulation structure tends to be studied in geospatial terms, with symmetric mixing, i.e., all metapopulation groups have the same symmetric _homophily_, i.e., the same tendency to more or less frequently mix within its own group compared to other groups. Heterogeneous mixing, however, has been recognized to matter for epidemiology of HIV/AIDS, the evolution of treatment-resistant malaria, 
+  and for the cultural spread of health-protective behaviors such as vaccination, mask wearing, or healthy eating. Indeed, social relationships are not just important for predicting disease transmission, but also for predicting the behaviors that may increase or decrease infection risk. Therefore, in this paper, we develop an agent-based _coupled contagion_ simulation model of disease and cultural transmission to understand how asymmetric a simple, generic metapopulation structure composed of one minority group and one majority group (by numbers) which have different, asymmetric homophily levels. The model is analyzed in both a sexually-transmitted disease-style model where social interactions are structured by an explicit social network, and an airborne disease-style context where mixing is structured only by asymmetric homophily levels. We (expect to) find that novel variants with higher transmission probabilities diffuse better when they begin in the minority group than the majority group, and that in this case the minority group will suffer a relatively greater share of the infections as a fraction of the total population. Simulated protective measures . This model provides a rigorous baseline evaluation of the effect of asymmetric homophily on disease transmission and pandemic preparedness in an idealized setting. This baseline provides a backdrop for a rigorous understanding of additional complexity to better evaluate real-world pandemic preparedness, such as psychological/emotional effects like out-group aversion and biased assimilation that can inhibit cultural learning between groups, and such as pathogen evolution in addition to transmission studied here.
 geometry:
   - margin=1.1in
   - letterpaper
@@ -51,4 +54,4 @@ Models like this enable us to rigorously understand how one important mechanism 
 
 ## Discussion
 
-## References
+## 
