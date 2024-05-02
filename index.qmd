@@ -1,0 +1,54 @@
+---
+title: Epidemiological dynamics in idealized metapopulations defined by asymmetric homophily
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    cite-method: biblatex
+    biblatexoptions: sorting=none, style=numeric-comp
+    pdf-engine: latexmk
+    pdf-engine-opt: -xelatex
+authors:
+  - name: Matthew Adam Turner
+    affiliation: Stanford University Doerr School of Sustainability
+    roles: writing, model development
+    corresponding: true
+    email: maturner@stanford.edu
+  - name: Izabela Rezende
+  - name: Benjamin Singer
+  - name: Hannah S. Derwanz
+  - name: James Holland Jones
+    affiliation: Stanford University Doerr School of Sustainability
+    roles: writing
+    corresponding: true
+bibliography: ../library.bib
+classoption: abstract
+keep-tex: true
+abstract: |
+  This is the abstract
+geometry:
+  - margin=1.1in
+  - letterpaper
+biblio-title: References
+---
+
+## Introduction
+
+Due to rapidly increasing population size and density in a changing climate, the interdisciplinary science of pandemic preparedness is an increasing priority [@Rodo2021; @Adashi2022]. To complement our biological understanding and preventative tools for mitigating the risk of pandemics, social science is essential to understand how social structure and behavior determines how disease and disease prevention behaviors (such as vaccination[@Amin2017; @Omer2021]) are adopted by individuals in different group-structured populations [@Buckee2021; @Epstein2008; @SmaldinoJones2021]. Oftentimes in epidemiology, groups are defined by any different group partitions can be relevant to epidemiology, including age (RSV and Polio refs), occupation (frontline/remote refs), and, of course, political party [@VanBavel2020]. To understand how social structure affects . Using this we can infer the effect of different vaccine distribution allotments between the two groups that could possibly better protect one group or the other, or meet other optimal criteria. Computational analyses of metapopulation models can be used to create *in silico* experiments that would be impossible to implement in the real world, for instance to predict how different vaccination distribution strategies would best prevent transmission dynamics [@Singer2022].
+
+Whether a new viral mutation or a cultural adaptation, beneficial *innovations* diffuse differently through different metapopulation structures. Turner and colleagues (2023) showed that novel innovations with higher fitness than an alternative best diffused when first introduced to a model minority group compared to a majority group (in terms of population size), in a metapopulation with a single other majority group [@Turner2023], and diffusion was further optimized when majority groups moderately preferred in-group interactions. Preference for in- versus out-group interactions is known as *homophily* [@McPherson2001], and introduced to a simple model metapopulation composed of a minority and majority group (by population size), where there exists a lower-fitness alternative, fitness-biased social learning.
+
+Simple idealized models like we develop here serve as a theoretical ground truth against which we can better understand real-world complexities. For instance, schistosomaiasis hotspots can be predicted with some accuracy based on data from initial outbreak [@Singer2024], but metapopulation structure may have an underlying effect on the emergence of hotspots that, when accounted for, could increase predictive power of data-driven statistical models. Metapopulation structure with asymmetric homophily is not yet rigorously understood in an idealized theoretical setting, despite the fact that contact structure can be observed to affect transmission dynamics of sexually transmitted disease [@Morris1991], the spread of antibiotic-resistant bacteria across hospital wards [@Shapiro2020], the emergence and diffusion of drug-resistant malaria [@Ariey2003], the spread of schistosomiasis [@Ciddio2017], and provide disease reservoirs that drove the spread of tuberculosis and COVID-19 between some prison and community populations [@Sacchi2015; @Ryckman2021]. Contact structure has been rigorously shown to shape epidemiological dynamics [@Arthur2017; @Großmann2021], but not in settings where social networks are defined by asymmetric homophily, specifically. For data-driven applications, asymmetric homophily measurements may be easier or more reliable compared to the network structure itself.
+
+To understand the effect of asymmetric homophily levels on epidemiological dynamics, we developed a computational model where metapopulations are composed of two groups, a minority and majority group defined by population size, where group members interact more or less frequently depending on group membership and group-level homophily levels, and whether interactions are structured by a social network (more like in a sexually-transmitted disease) or by random asymmetric homophilous mixing within and between groups (like in an airborne disease), adapting the models of Turner et al (2023) and Turner, Reynolds, and Jones (2024) for epidemiology by augmenting the social learning dynamic with SIR epidemiological dynamics.
+
+Models like this enable us to rigorously understand how one important mechanism affects the course of disease and optimal intervention strategy. The cost of rigor, at this stage, is the exclusion of other important details that can affect disease or cultural transmission, including individual-level general health, access to clean running water, working conditions, and social factors such as asymmetric outgroup aversion levels between groups, which can undermine the adoption of adaptive behaviors [@EhretConstantino2022]. However, this initial mechanistic model ideally sets in motion a series of follow-on studies to better understand which of these additional factors alter model predictions to what extent. Model refinements and specializations can be added for specific epidemiological contexts, different scenarios and intervention strategies can be tested computationally for optimal policies given available information. More shortcomings, refinements, and specializations can follow that, with the process repeating as necessary. This work complements a broader effort across evolutionary sciences to understand the interplay between social structure and collective co-adaptation among humans, non-humans, and pathogens [@Bak-Coleman2021; @GalesicEtAl2023].
+
+## Model
+
+## Analysis
+
+## Discussion
+
+## References
