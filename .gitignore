@@ -13,6 +13,5 @@ index.fdb_latexmk
 index.html
 index.xdv
 references.bib
-renv
 renv.lock
 index.out.ipynb
