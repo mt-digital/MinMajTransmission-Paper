@@ -126,7 +126,9 @@
 \usepackage[sorting=none, style=numeric-comp]{biblatex}
 \addbibresource{../library.bib}
 \usepackage{bookmark}
-
+\usepackage{xcolor}
+\definecolor{myorange}{RGB}{240, 96, 0}
+\newcommand{\mt}[1]{{\textcolor{myorange} {({\tiny MT:} #1)}}}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -271,7 +273,8 @@ reduce infections in the reserve.
 
 }
 
-\caption{We can model the relevant groups for mixing as either village
+\caption{\mt{UPDATE THIS CAPTION AND THE FIGURE TO MATCH EQUATIONS. ADD PARAMETERS TABLE.}
+  We can model the relevant groups for mixing as either village
 residence or ethnicity. Transmission, mixing, and mobility parameters
 would be set accordingly. The \(C_g\) parameters would be reduced if
 economic aid were allocated to keep group \(g\) on the Reserve during
@@ -293,7 +296,7 @@ outbreaks.}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch.pdf}
+{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ReductionByGroup.pdf}
 
 }
 
@@ -302,7 +305,28 @@ differential effects on reduction in incidence for different groups.}
 
 \end{figure}%
 
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByStrategy.pdf}
+
+}
+
+\caption{We hypothesize that overall reduction in disease incidence ($\Delta I$, y-axis)  depends on 
+strategy to distribute the total aid to reduce travel between Dourados Reserve and city ($\gamma$, x-axis).}
+
+\end{figure}%
+
 \section{Discussion}\label{discussion}
+
+
+\begin{itemize}
+  \item 
+    Application to other problematic diseases in the Reserve, e.g., TB, STDs,\ldots 
+  \item
+    The data is not necessarily representative and we had to use educated guesses
+    for mixing parameters.
+\end{itemize}
 
 
 \printbibliography[title=References]
