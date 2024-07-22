@@ -29,14 +29,14 @@
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
+% \@ifundefined{KOMAClassName}{% if non-KOMA class
+  % \IfFileExists{parskip.sty}{%
+  %   \usepackage{parskip}
+  % }{% else
+  %   % \setlength{\parindent}{pt}
+  %   \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+% }{% if KOMA class
+  % \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
 \usepackage[margin=1.1in,letterpaper]{geometry}
@@ -143,9 +143,9 @@
   pdfcreator={LaTeX via pandoc}}
 
 \title{Predicting the effect of candidate interventions for mitigating
-disease spread in asymmetric mixing metapopulations}
+disease spread in asymmetric-mixing metapopulations}
 \author{Matthew Adam Turner}
-\date{}
+\date{\today}
 
 \begin{document}
 \maketitle
@@ -188,37 +188,18 @@ Indigenous men traveling between the reserve and the city of Dourados
 for economic reasons. This is a reasonable hypothesis given available
 data.
 
-\begin{figure}[H]
+\mt{IF TERENA ARE MINORITY, HAVE HIGH MOBILITY TO CITY, AND $c_{GT} > c_{TG}$
+THERE COULD BE A MINORITY INCUBATOR-TYPE EFFECT~\autocite{Turner2023}}
 
-{\centering \includegraphics[width=0.8\textwidth,height=\textheight]{Figures/ReserveMap.pdf}
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:Map} ABOUT HERE ]} \\
+\end{center}
 
-}
-
-\caption{Map of Dourados Indigenous Reserve villages (Bororó in light
-blue, Jaguapiru in cyan) and the city of Dourados (dark blue). Note
-Jaguapiru shares a much longer boundary with the reserve than Dourados,
-which facilitates mobility in and out of the reserve for both Reserve
-and city residents. Maps combined from Schnaufer et al.~(2023) and
-Cavalcante (2019)}
-
-\end{figure}%%
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.8\textwidth,height=\textheight]{Figures/Time Series.pdf}
-
-}
-
-\caption{Time series of COVID-19 spread through the Dourados Indigenous
-Reserve, with significant events highlighted. The first B.1.1 variant
-cases were introduced by the Guarani ethnicity (1), followed about one
-month later by a rapid rise in cases in Jaguapiru among the Terena
-ethnicity(2); several months later a rapid rise in Bororó was caused by
-a rapid rise among Guarani (3). Zeta was introduced at the end of 2020
-(4), with a rapid rise around the holiday season especially in Jaguapiru
-among Guarani (5); later in February cases rose in Bororó among the
-Terena (6).}
-
-\end{figure}%
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:DeOliveiraSeries} ABOUT HERE ]} \\
+\end{center}
 
 Despite some evidence to support the hypothesis that young male
 Indigenous mobility can explain transmission into the reserve, there are
@@ -265,57 +246,101 @@ reduce infections in the reserve.
   city travel to the reserve for commerce as well.
 \end{itemize}
 
-\section{Model}\label{model}
+\section{Model}\label{sec:model}
 
-\begin{figure}[H]
+To understand and predict how different candidate economic interventions could
+reduce transmission in the Dourados Reserve, we develop a mechanistic model of
+transmission in the Reserve implemented as a set of compartmental
+susceptible-infected-recovered system (SIR) of differential equations.  There
+are six compartments in the differential equations, one $S_g$, $I_g$, and $R_g$ for
+each group, $g$.  We evaluate different interventions by varying the reduction in
+Indigenous travel between the Dourados reserve and the city, which in the real
+world would be achieved by economic aid that reduces the need for Indigenous
+travel to the city. First we test the effect of global reduction in travel on
+infections in the Reserve, where aid is distributed equally across all possible
+groupings. Second, we test different strategies for distributing aid to
+different groups to understand which, if any, are more effective than equal aid
+distribution. Finally, we test infectin prevention under both global and
+group-specific intervention strategies for a stylized version of the Zeta
+variant that allows probabilistically for re-infection. Although the model is
+focused on COVID-19 transmission in the Dourados Indigenous Reserve, the
+model is abstract. What we learn in our analyses could therefore transfer to
+other diseases in the Reserve or other socio-epidemiological contexts.
 
-{\centering \includegraphics{Figures/ModelSketch.pdf}
 
-}
+\subsection{Model dynamics and formalism}
+\label{sub:modelDynamics}
 
-\caption{\mt{UPDATE THIS CAPTION AND THE FIGURE TO MATCH EQUATIONS. ADD PARAMETERS TABLE.}
-  We can model the relevant groups for mixing as either village
-residence or ethnicity. Transmission, mixing, and mobility parameters
-would be set accordingly. The \(C_g\) parameters would be reduced if
-economic aid were allocated to keep group \(g\) on the Reserve during
-outbreaks.}
+Our model represents interactions within and between Dourados Indigenous 
+Reserve groups, and with members of the city of Dourados 
+(Figure~\ref{fig:ModelSketch}). To represent
+interactions between groups we define two possible groupings, by village
+(Figure~\ref{fig:ModelSketch}, Model 1) and by ethnicity
+(Figure~\ref{fig:ModelSketch}, Model 2). The within-group contact rate 
+is $c_{gg}$ for focal group $g$. The contact rate between the focal group and
+its outgroup, $g'$, is $c_{gg'}$. If in Model 2 the focal group is Terena, then
+the within-group contact rate is $c_{TT}$ and the between-group contact rate,
+representing how frequently Terena interact with Guarani is $c_{TG}$, Each of these groupings can be further
+subdivided by the alternative Model grouping, represented in 
+Figure~\ref{fig:ModelSketch} by the inset pie chart diagrams in each group's
+circle. Reserve resident mobility is represented by a contact-infection rate,
+$\gamma_g$, which represents how frequently a susceptible member of group $g$
+brings an infection into the Reserve. The exact compartments, $S$, $I$, and $R$
+for the city population are ignored.
 
-\end{figure}%
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:ModelSketch} ABOUT HERE ]} \\
+\end{center}
 
-\subsection{Equations}\label{equations}
+This contact structure, combined with a global transmission rate $\tau$,
+recovery rate, $\rho$, and re-susceptibility rate, $r$, results in a system of
+six differential equations for each of the six compartments
+(Equation~\ref{eq:DiffEqs}). $\tau$ and $\rho$ will be set to reasonable values
+for main analyses, but varied for sensitivity analyses.  \mt{Q: What constitutes
+a ``reasonable value'' here? Values Aja used were for ABM---what about for a
+diffeq model like this?}. To model increased re-infections observed with the
+Zeta variant, we also include a term $r R_g$ that is positive in the
+$\frac{dS_g}{dt}$ equation and negative in the $\frac{dR_g}{dt}$ term to
+transfer recovered individuals from the recovered compartment for group $g$ to
+the susceptible compartment for that group. If $r=0$, then there will be no
+re-infections. Otherwise there may be re-infections, which could have complex
+interactions with interaction structure.
 
 \begin{align*}
-  \frac{dS_g}{dt} &= -\left(\tau c_{gg'} I_g + c_{g'g}I_{g'} + \gamma_g \right)S_g + r R_g   \\
-  \frac{dI_g}{dt} &= \left(\tau c_{gg'} I_g + c_{g'g}I_{g'} + \gamma_g \right)S_g - \rho I_g \\
-  \frac{dR_g}{dt} &= \rho I_g - r R_g
-    \numberthis \label{eq:DiseaseContagion}
+  \frac{dS_g}{dt} &= -m_{gg'} \tau S_g + r R_g   \\
+  \frac{dI_g}{dt} &=  m_{gg'} \tau S_g - \rho I_g \\
+  \frac{dR_g}{dt} &= \rho I_g - r R_g,\quad\text{ where } \\[1em]
+          m_{gg'} &= \left(c_{gg'} I_g + c_{g'g}I_{g'} + \gamma_g \right)
+    \numberthis \label{eq:DiffEqs}
 \end{align*}
 \noindent
 
+
+\vspace{0.5em}
+\begin{center}
+{[ TABLE \ref{tab:Variables} ABOUT HERE ]} \\
+\end{center}
+
+
+
+\subsection{Computational analysis}
+
+
+
 \section{Analysis (Sketch)}\label{analysis-sketch}
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ReductionByGroup.pdf}
-
-}
-
-\caption{Global reduction in travel to and from the city could have
-differential effects on reduction in incidence for different groups.}
-
-\end{figure}%
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:GlobalTravelReduction} ABOUT HERE ]} \\
+\end{center}
 
 
-\begin{figure}[H]
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:GroupSpecificTravelReduction} ABOUT HERE ]} \\
+\end{center}
 
-{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByStrategy.pdf}
-
-}
-
-\caption{We hypothesize that overall reduction in disease incidence ($\Delta I$, y-axis)  depends on 
-strategy to distribute the total aid to reduce travel between Dourados Reserve and city ($\gamma$, x-axis).}
-
-\end{figure}%
 
 \section{Discussion}\label{discussion}
 
@@ -326,10 +351,138 @@ strategy to distribute the total aid to reduce travel between Dourados Reserve a
   \item
     The data is not necessarily representative and we had to use educated guesses
     for mixing parameters.
+  \item
+    Have not yet considered more complex epidemiological and behavioral
+    dynamics. For example, group structure can affect the coupled contagion of
+    disease and behaviors that could encourage or impede the spread of
+    disease~\autocite{SmaldinoJones2021}. Our compartmental model
+    incorporated group structure and contact rate heterogeneity, but finer
+    details of the social network structure can induce complex
+    epidemiological dynamics~\autocite{Arthur2017}. In the case of Dourados
+    and possibly other Indenous communities is the tendency for several
+    generations of families to live in close proximinty to one another,
+    often communally with other families as well, making social isolation
+    culturally unpalatable and, consequentially, unfeasible. Adaptation to
+    evolving, uncertain epidemiological social and environmental contexts is
+    one further factor that can complicate epidemiological
+    dynamics~\autocite{Arthur2021} and willingness to learn beneficial public
+    health behaviors from others~\autocite{Turner2023a}.
 \end{itemize}
 
 
 \printbibliography[title=References]
 
+
+\clearpage
+
+\section{Tables}
+
+
+\begin{table}[h]
+  \centering
+  \caption{\textbf{Model variables, description and values taken.} The
+  compartmental model described in Equation~\ref{eq:DiffEqs} includes several
+social mixing, behavioral, and epidemiological variables described here.}
+  \label{tab:Variables}
+  \begin{tabular}{rlp{1.3in}} 
+    \toprule
+    variable & description & values \\ 
+    \midrule 
+    $S_g,I_g,R_g$ & Susceptible, infected, recovered compartments by group & $[0.0,1.0]$ \\
+    $c_{gg'},c_{g'g}$ & Asymmetric inter-group contact rates & $[0.0,1.0]$ \\
+    $\gamma_g$ & Group-level incidence-contact rate with city residents &
+      $\{0.0,0.1,\ldots,0.4\}$ \\
+    $\rho$ & Global recovery rate & $[0.0,1.0]$ \\
+    $\tau$ & Global ransmission rate & $[0.0,1.0]$ \\
+    $r$    & Re-susceptible probability, non-zero only for Zeta & $0.0,0.5$ \\
+    $g,g'$ & Reference group ($g$) and out-group $g'$ & Terena, Guarani; Bororó, Jaguapiru \\
+    \bottomrule
+  \end{tabular} 
+\end{table}
+
+\section{Figures}
+
+\begin{figure}[H]
+
+\centering
+\caption{\textbf{Map of Dourados Indigenous Reserve villages.} Bororó is light
+blue, Jaguapiru cyan, and the city of Dourados dark blue. Note
+Jaguapiru shares a much longer boundary with the reserve than Dourados,
+which facilitates mobility in and out of the reserve for both Reserve
+and city residents. Maps combined from Cavalcante (2019) for the underlying
+topographic map and Schnaufer et al.~(2023) for the villages, city, and 
+sample collection points (clinics) layer.}
+\label{fig:Map}
+\vspace{0.3em}
+{\includegraphics[width=0.8\textwidth,height=\textheight]{Figures/ReserveMap.pdf}}
+\end{figure}%%
+
+
+\begin{figure}[H]
+\caption{Time series of COVID-19 spread through the Dourados Indigenous
+Reserve, with significant events highlighted. The first B.1.1 variant
+cases were introduced by the Guarani ethnicity (1), followed about one
+month later by a rapid rise in cases in Jaguapiru among the Terena
+ethnicity (2); several months later a rapid rise in Bororó was caused by
+a rapid rise among Guarani (3). Zeta was introduced at the end of 2020
+(4), with a rapid rise around the holiday season especially in Jaguapiru
+among Guarani (5); later in February cases rose in Bororó among the
+Terena (6).}
+\label{fig:DeOliveiraSeries}
+\vspace{0.3em}
+{\centering \includegraphics[width=0.8\textwidth,height=\textheight]{Figures/Time Series.pdf}
+
+}
+\end{figure}%
+
+
+
+\begin{figure}[H]
+
+\caption{
+  We can model the relevant groups for mixing as either village
+residence or ethnicity. Mixing, and mobility parameters
+would be set accordingly. Mixing is asymmetric, with $c_{gg}$ representing the
+contact rate within group $g$, and each $c_{gg'}$ representing
+the contact rate at which a member of group $g$ encounters a member of the
+outgroup $g'$, e.g., $c_{GT}$ is the contact rate at which Guarani encounter
+members of the Terena. The $\gamma_g$ parameters would be reduced through
+economic aid to group $g$ for them to remain on the Reserve during
+outbreaks. \mt{Looks like some labels are cut off; will fix in later draft.}}
+\label{fig:ModelSketch}
+\vspace{0.3em}
+{\centering \includegraphics{Figures/ModelSketch.pdf}
+
+}
+\end{figure}%
+
+
+\begin{figure}[H]
+
+\caption{Global reduction in travel to and from the city could have
+Infection reduction ($\Delta I$, y-axis) for different groups could be
+different as global reduction in travel to and from the city decreases
+($\Delta \gamma$, x-axis).}
+\label{fig:GlobalTravelReduction}
+\vspace{0.3em}
+{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ReductionByGroup.pdf}
+
+}
+
+\end{figure}%
+
+
+\begin{figure}[H]
+
+\caption{We hypothesize that overall reduction in disease incidence ($\Delta I$, y-axis)  depends on 
+strategy to distribute the total aid to reduce travel between Dourados Reserve and city ($\Delta \gamma$, x-axis).}
+\label{fig:GroupSpecificTravelReduction}
+\vspace{0.3em}
+{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByStrategy.pdf}
+
+}
+
+
+\end{figure}%
 
 \end{document}
