@@ -161,35 +161,63 @@ disease spread in asymmetric-mixing metapopulations}
 }
 \section{Introduction}\label{introduction}
 
-To equitably prepare for pandemics in our uncertain world we need to
+To equitably prepare for pandemics in our uncertain world we
+need to predict the effect of candidate interventions to mitigate novel spillover
+disease and novel variants of existing disease
 \autocite{Rodo2021,Adashi2022}. The global COVID-19 pandemic highlighted
 the current lack of outcome equality, where a country's inequality
 (measured by the Gini index) predicted higher burden of COVID-19
 infections \autocite{Su2022}. Here we contribute to this program of more
 equitable pandemic preparedness by developing a compartmental
-behavioral-epidemiological metapopulation model of COVID-19 transmission
-between a Brazilian city, Dourados, in Mato Grosso do Sul, and the
+behavioral-epidemiological metapopulation model with an immediate application:
+disease transmission between a Brazilian city, Dourados, in the state of 
+Mato Grosso do Sul, and the
 neighboring Dourados Indigenous Reserve \autocite{DeOliveira2023}.
-COVID-19 burden was felt disproportionately by Indigenous peoples in
-Brazil \autocite{Simionatto2020}, but may have been worse in the
-Dourados Reserve due to its immediate proximity to the Dourados. Nearly
+COVID-19 burden was felt disproportionately by Indigenous peoples throughout
+Brazil \autocite{Simionatto2020}, but the burden may have been even more 
+inequitable in the
+Dourados Reserve due to its immediate proximity to the city of Dourados. Nearly
 all residents of the reserve live in domiciles in one of two villages in
 the Reserve, Jaguapiru and Bororó. Jaguapiru is closer overall to the
 city of Dourados, sharing a much longer border with the city limits than
-Bororó (Figure 1). Indigenous peoples on the reserve are predominantly
-one of two ethnicities, Guarani and Terena. Anecdotally, Terena are
-known for being better educated with somewhat more robust physicality
-and, perhaps, better resistance to disease. They may travel to the city
-more frequently for trade and other purposes.
-
+Bororó (Figure \ref{fig:Map}). Indigenous peoples on the reserve are predominantly
+one of two ethnicities, Guarani and Terena. 
+% Anecdotally, Terena are
+% known for being better educated with somewhat more robust physicality
+% and, perhaps, better resistance to disease. 
+% Anecdotally Terena may travel to the city more frequently for trade and other purposes,
+% however De Olivera and colleagues 
 De Oliveira and co-authors hypothesized that COVID-19 variant diffusion
 from Dourados City into the Dourados Reserve is driven by young
 Indigenous men traveling between the reserve and the city of Dourados
-for economic reasons. This is a reasonable hypothesis given available
-data.
+for economic reasons. This is a reasonable starting hypothesis given available
+data, but it points to potentially richer, more explanatory mechanisms and 
+a more detailed set of hypotheses. Understanding transmission in the Reserve, and
+evaluating possible interventions based on this understanding, could mitigate
+the next pandemic that affects the Dourados Reserve, and lessons learned here could
+transfer to pandemic preparedness planning in other contexts.
 
-\mt{IF TERENA ARE MINORITY, HAVE HIGH MOBILITY TO CITY, AND $c_{GT} > c_{TG}$
-THERE COULD BE A MINORITY INCUBATOR-TYPE EFFECT~\autocite{Turner2023}}
+Despite some evidence to support the hypothesis that young male
+Indigenous mobility can explain transmission into the reserve, there are
+many complicating factors that make it difficult to evaluate this
+hypothesis directly without adding some additional qualifications. 
+There
+may be other social factors that may be necessary for the time series
+observations of De Oliveira and co-authors. 
+Furthermore, there may be
+less significant factors driving transmission in this model that may be
+of greater importance in future outbreaks of different diseases than
+SARS-CoV-2 in the reserve. 
+Therefore, here we expand the scope of the
+hypothesis to include hypotheses about how social groups, namely village
+residency and Indigenous ethnic group, affect transmission in the
+reserve and explain observed outbreaks of variants B.1.1 and Zeta in the
+Reserve. To evaluate the hypotheses, presented in the next paragraph, we
+develop a mechanistic model of epidemiological transmission with
+asymmetric social mixing that evaluates how best to model group
+structure in the Reserve. In turn, this model is used to evaluate
+potential economic interventions that target aid to different groups to
+reduce infections in the reserve.
 
 \vspace{0.5em}
 \begin{center}
@@ -201,24 +229,6 @@ THERE COULD BE A MINORITY INCUBATOR-TYPE EFFECT~\autocite{Turner2023}}
 {[ FIGURE \ref{fig:DeOliveiraSeries} ABOUT HERE ]} \\
 \end{center}
 
-Despite some evidence to support the hypothesis that young male
-Indigenous mobility can explain transmission into the reserve, there are
-many complicating factors that make it difficult to evaluate this
-hypothesis directly without adding some additional qualifications. There
-may be other social factors that may be necessary for the time series
-observations of De Oliveira and co-authors. Furthermore, there may be
-less significant factors driving transmission in this model that may be
-of greater importance in future outbreaks of different diseases than
-SARS-CoV-2 in the reserve. Therefore, here we expand the scope of the
-hypothesis to include hypotheses about how social groups, namely village
-residency and Indigenous ethnic group, affect transmission in the
-reserve and explain observed outbreaks of variants B.1.1 and Zeta in the
-Reserve. To evaluate the hypotheses, presented in the next paragraph, we
-develop a mechanistic model of epidemiological transmission with
-asymmetric social mixing that evaluates how best to model group
-structure in the Reserve. In turn, this model is used to evaluate
-potential economic interventions that target aid to different groups to
-reduce infections in the reserve.
 
 \begin{itemize}
 \item
@@ -355,7 +365,7 @@ One strategy we test is the \emph{Equal} strategy, where all $\gamma_g$ are
 equal. Another named strategy is the \emph{80-20} strategy, where the
 reduction in mobility in group $g$ is 80\% of the total, and reduction in
 group $g'$ mobility is 20\% of the total, i.e., $\Delta\gamma_g / \Delta\gamma =
-0.8$ and $\Delta\gamma_{g'} / \Delta\gamma = 0.2$ To create alternative
+0.8$ and $\Delta\gamma_{g'} / \Delta\gamma = 0.2$. To create alternative
 strategies, both the total reduction and the ratio of group-level reduction to 
 total reduction can be changed. We finally evaluate the hypothesis that
 interventions that may be effective for strains with no re-infection (like
@@ -367,16 +377,18 @@ computational evaluation of intervention strategies.
 
 \section{Analysis (Sketch)}\label{analysis-sketch}
 
-\vspace{0.5em}
-\begin{center}
-{[ FIGURE \ref{fig:GlobalTravelReduction} ABOUT HERE ]} \\
-\end{center}
 
 
 \vspace{0.5em}
 \begin{center}
 {[ FIGURE \ref{fig:GroupSpecificTravelReduction} ABOUT HERE ]} \\
 \end{center}
+
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:GlobalTravelReduction} ABOUT HERE ]} \\
+\end{center}
+
 
 
 \section{Discussion}\label{discussion}
