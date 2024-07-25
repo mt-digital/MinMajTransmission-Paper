@@ -338,20 +338,30 @@ interactions with interaction structure.
 
 We evaluate hypothetical interventions to limit the spread of
 infection in the Reserve by simulating these interventions using the formal
-system explained above. Our main outcome variable is the reduction in simulated
-COVID-19 incidence among Indigenous peoples compared to the no-intervention
-case, defined 
+system explained above. Our main outcome variable is the mean reduction 
+in simulated COVID-19 incidence among group $g$ as a fraction of the no-intervention
+cumulative cases, defined at the group level as
 \begin{equation}
-  \Delta I = I(\text{no intervention}) - I(\text{intervention } i).
+  \langle \Delta I_g \rangle = \left\langle \frac{I^\mathrm{Tot}_g(\text{no intervention}) -
+    I^\mathrm{Tot}_g(\text{intervention } i)}{I^\mathrm{Tot}_g(\text{no
+  intervention})} \right\rangle.
+  \label{eq:DeltaI_byGroup}
+\end{equation}
+\noindent
+The mean total expected reduction of cumulative cases is 
+\begin{equation}
+  \langle \Delta I^\mathrm{Tot} \rangle = \left \langle \sum_g \Delta I_g \right \rangle = \sum_g \left \langle \Delta I_g \right \rangle 
   \label{eq:DeltaI}
 \end{equation}
 \noindent
-A preliminary step is to find parameterizations that reproduce the observed
-outbreaks of B.1.1 and Zeta within the Reserve to obtain a baseline estimate of
-infection size $I(\text{no intervention})$. 
-To this end we hypothesize that re-infections could have driven the observed
-greater spread of the Zeta strain, though it could also be due to the holiday
-season around the end of 2020 and beginning of 2021. 
+by linearity of expectations.
+In the case of deterministic differential equations, these expectations are just the
+values themselves.  We can define A preliminary step is to find parameterizations
+that reproduce the observed outbreaks of B.1.1 and Zeta within the Reserve to obtain
+a baseline estimate of infection size $I(\text{no intervention})$.  To this end we
+hypothesize that re-infections could have driven the observed greater spread of the
+Zeta strain, though it could also be due to the holiday season around the end of
+2020 and beginning of 2021. 
 
 Interventions center around reducing the mobility of Indigenous people between
 Dourados city and Reserve; the total change in mobility, denoted $\Delta
@@ -363,8 +373,10 @@ groups, i.e.,
 \end{equation}
 \noindent
 Different interventions allocate $\Delta \gamma$ (Equation~\ref{eq:DeltaGamma})
-in different ways to hypothetically result in different case reductions, $\Delta
-I$ (Equation~\ref{eq:DeltaI}). 
+in different ways to hypothetically result in different case reductions for each
+group and overall (Equation~\ref{eq:DeltaI_byGroup} and Equation~\ref{eq:DeltaI},
+respectfully; see Table~\ref{tab:AnalysisVariables} for a summary of these analysis
+variables).
 One strategy we test is the \emph{Equal} strategy, where all $\gamma_g$ are
 equal. Another named strategy is the \emph{80-20} strategy, where the
 reduction in mobility in group $g$ is 80\% of the total, and reduction in
@@ -387,16 +399,21 @@ strains with re-infection (like Zeta), and vice-versa.
 
 
 
-\vspace{0.5em}
-\begin{center}
-{[ FIGURE \ref{fig:GroupSpecificTravelReduction} ABOUT HERE ]} \\
-\end{center}
 
 \vspace{0.5em}
 \begin{center}
-{[ FIGURE \ref{fig:GlobalTravelReduction} ABOUT HERE ]} \\
+{[ FIGURE \ref{fig:ByGroupReduction_GlobalStrategy} ABOUT HERE ]} \\
 \end{center}
 
+% \vspace{0.5em}
+% \begin{center}
+% {[ FIGURE \ref{fig:ByReinfectionByStrategy} ABOUT HERE ]} \\
+% \end{center}
+
+\vspace{0.5em}
+\begin{center}
+{[ FIGURE \ref{fig:ByReinfectionByStrategy} ABOUT HERE ]} \\
+\end{center}
 
 
 \section{Discussion}\label{discussion}
@@ -457,6 +474,29 @@ social mixing, behavioral, and epidemiological variables described here.}
   \end{tabular} 
 \end{table}
 
+
+
+\begin{table}[h]
+  \centering
+  \caption{\textbf{Independent and dependent analysis variables.} Reducing
+  mobility to the city (first row) hypothetically increases the reduction in
+cumulative cases in the Reserve (second row).}
+  \label{tab:AnalysisVariables}
+  \begin{tabular}{rp{3.0in}l} 
+    \toprule
+    variable & description & values \\
+    \midrule 
+    $\Delta \gamma$ and $\Delta \gamma_g$ & Total city mobility reduction and 
+      group-level mobility reduction & $0.0,0.2,\ldots,0.8$ \\
+      $\langle \Delta I^\mathrm{Tot} \rangle$ and $\langle \Delta I^\mathrm{Tot}_g
+      \rangle$  & Parameter-set ensemble averages of total and group-level
+      cumulative incidence reduction & [0.0, 1.0] \\
+    \bottomrule
+  \end{tabular} 
+\end{table}
+
+
+
 \section{Figures}
 
 \begin{figure}[H]
@@ -514,31 +554,47 @@ outbreaks. \mt{Looks like some labels are cut off; will fix in later draft.}}
 \end{figure}%
 
 
+
+
+
+% \begin{figure}[H]
+
+% \caption{We hypothesize that overall reduction in disease incidence ($\Delta I$, y-axis)  depends on 
+% strategy to distribute the total aid to reduce travel between Dourados Reserve and city ($\Delta \gamma$, x-axis).}
+% \label{fig:ByGroupReduction_GlobalStrategy}
+% \vspace{0.3em}
+% {\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByStrategy.pdf}
+
+% }
+% \end{figure}
+
+
+\begin{figure}[H]
+
+\caption{Disease reduction ($\Delta I$, y-axis) depends on the possibility of
+  re-infection and the
+distribution strategy to reduce travel between Dourados Reserve and city ($\Delta \gamma$, x-axis).}
+\label{fig:ByReinfectionByStrategy}
+\vspace{0.3em}
+{\centering
+  \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByReinfectionByStrategy.pdf}
+
+}
+
+
+\end{figure}%
+
 \begin{figure}[H]
 
 \caption{Global reduction in travel to and from the city could have
 Infection reduction ($\Delta I$, y-axis) for different groups could be
 different as global reduction in travel to and from the city decreases
 ($\Delta \gamma$, x-axis).}
-\label{fig:GlobalTravelReduction}
+\label{fig:ByGroupReduction_GlobalStrategy}
 \vspace{0.3em}
 {\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ReductionByGroup.pdf}
 
 }
-
-\end{figure}%
-
-
-\begin{figure}[H]
-
-\caption{We hypothesize that overall reduction in disease incidence ($\Delta I$, y-axis)  depends on 
-strategy to distribute the total aid to reduce travel between Dourados Reserve and city ($\Delta \gamma$, x-axis).}
-\label{fig:GroupSpecificTravelReduction}
-\vspace{0.3em}
-{\centering \includegraphics[width=0.95\textwidth,height=\textheight]{Figures/ResultsSketch_ByStrategy.pdf}
-
-}
-
 
 \end{figure}%
 
