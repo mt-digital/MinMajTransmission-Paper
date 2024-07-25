@@ -329,7 +329,7 @@ interactions with interaction structure.
 
 \vspace{0.5em}
 \begin{center}
-{[ TABLE \ref{tab:Variables} ABOUT HERE ]} \\
+{[ TABLE \ref{tab:ModelVariables} ABOUT HERE ]} \\
 \end{center}
 
 
@@ -343,6 +343,7 @@ COVID-19 incidence among Indigenous peoples compared to the no-intervention
 case, defined 
 \begin{equation}
   \Delta I = I(\text{no intervention}) - I(\text{intervention } i).
+  \label{eq:DeltaI}
 \end{equation}
 \noindent
 A preliminary step is to find parameterizations that reproduce the observed
@@ -358,21 +359,28 @@ Dourados city and Reserve; the total change in mobility, denoted $\Delta
 groups, i.e., 
 \begin{equation}
   \Delta \gamma = \sum_g \Delta \gamma_g.
+  \label{eq:DeltaGamma}
 \end{equation}
 \noindent
-Different interventions allocate $\Delta \gamma$ to different degrees. 
+Different interventions allocate $\Delta \gamma$ (Equation~\ref{eq:DeltaGamma})
+in different ways to hypothetically result in different case reductions, $\Delta
+I$ (Equation~\ref{eq:DeltaI}). 
 One strategy we test is the \emph{Equal} strategy, where all $\gamma_g$ are
 equal. Another named strategy is the \emph{80-20} strategy, where the
 reduction in mobility in group $g$ is 80\% of the total, and reduction in
 group $g'$ mobility is 20\% of the total, i.e., $\Delta\gamma_g / \Delta\gamma =
 0.8$ and $\Delta\gamma_{g'} / \Delta\gamma = 0.2$. To create alternative
 strategies, both the total reduction and the ratio of group-level reduction to 
-total reduction can be changed. We finally evaluate the hypothesis that
-interventions that may be effective for strains with no re-infection (like
-B.1.1) will not be equally effective for strains with re-infection (like Zeta),
-and vice-versa. This will highlight the importance of accounting for social and
-epidemiological context, alike, in pandemic preparedness via this program of
-computational evaluation of intervention strategies.
+total reduction can be changed. In addition to total case reduction, we 
+measure relative group-level case reduction, $\Delta I_g$, 
+for each considered strategy to understand whether case reduction is equitable
+between villages and ethnicities under different strategies. 
+We finally evaluate the hypothesis that interventions that may be effective for
+strains with no re-infection (like B.1.1) will not be equally effective for
+strains with re-infection (like Zeta), and vice-versa. 
+% This will highlight the importance of accounting for social and
+% epidemiological context, alike, in predicting the effectiveness of mitigation
+% strategies for pandemic preparedness.
 
 
 \section{Analysis (Sketch)}\label{analysis-sketch}
@@ -432,7 +440,7 @@ computational evaluation of intervention strategies.
   \caption{\textbf{Model variables, description and values taken.} The
   compartmental model described in Equation~\ref{eq:DiffEqs} includes several
 social mixing, behavioral, and epidemiological variables described here.}
-  \label{tab:Variables}
+  \label{tab:ModelVariables}
   \begin{tabular}{rlp{1.3in}} 
     \toprule
     variable & description & values \\ 
