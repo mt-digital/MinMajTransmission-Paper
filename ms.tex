@@ -217,8 +217,8 @@ develop a mechanistic model of epidemiological transmission with
 asymmetric social mixing that evaluates how best to model group
 structure in the Reserve. In turn, this model is used to evaluate
 potential economic interventions that target aid to different groups to
-reduce infections in the reserve.
-
+reduce infections in the reserve. The effect of different amounts of aid to
+different groups 
 \vspace{0.5em}
 \begin{center}
 {[ FIGURE \ref{fig:Map} ABOUT HERE ]} \\
@@ -297,6 +297,9 @@ circle. Reserve resident mobility is represented by a contact-infection rate,
 $\gamma_g$, which represents how frequently a susceptible member of group $g$
 brings an infection into the Reserve. The exact compartments, $S$, $I$, and $R$
 for the city population are ignored.
+The $\gamma_g$ parameters are proxies for resources allocated to 
+economic aid or other programs to support to group $g$ to remain on the Reserve 
+during outbreaks. 
 
 \vspace{0.5em}
 \begin{center}
@@ -436,6 +439,14 @@ strains with re-infection (like Zeta), and vice-versa.
     one further factor that can complicate epidemiological
     dynamics~\autocite{Arthur2021} and willingness to learn beneficial public
     health behaviors from others~\autocite{Turner2023a}.
+  \item
+    Currently we do not connect how much it costs to implement these programs,
+    and there may be difficult questions over what equality means: is it
+    spending the same amount of money per group or preventing the same number of
+    hypothetical infections for each group? Of course a scientific article 
+    cannot provide the answer, but here we do provide a program for evaluating
+    different choices to prototype planned responses to pandemic outbreaks and
+    reason quantitatively about alternative courses of action.
 \end{itemize}
 
 
@@ -511,8 +522,8 @@ sample collection points (clinics) layer.}
 
 
 \begin{figure}[H]
-\caption{Time series of COVID-19 spread through the Dourados Indigenous
-Reserve, with significant events highlighted. The first B.1.1 variant
+\caption{\textbf{Time series of COVID-19 spread through the Dourados Indigenous
+Reserve,} with significant events highlighted. The first B.1.1 variant
 cases were introduced by the Guarani ethnicity (1), followed about one
 month later by a rapid rise in cases in Jaguapiru among the Terena
 ethnicity (2); several months later a rapid rise in Bororó was caused by
@@ -532,15 +543,12 @@ Terena (6).}
 \begin{figure}[H]
 
 \caption{
-  We can model the relevant groups for mixing as either village
-residence or ethnicity. Mixing, and mobility parameters
-would be set accordingly. Mixing is asymmetric, with $c_{gg}$ representing the
+\textbf{Relevant groups for modeling inter-group mixing could be village
+residence or ethnicity.} Mixing is asymmetric, with $c_{gg}$ representing the
 contact rate within group $g$, and each $c_{gg'}$ representing
 the contact rate at which a member of group $g$ encounters a member of the
 outgroup $g'$, e.g., $c_{GT}$ is the contact rate at which Guarani encounter
-members of the Terena. The $\gamma_g$ parameters would be reduced through
-economic aid to group $g$ for them to remain on the Reserve during
-outbreaks. \mt{Looks like some labels are cut off; will fix in later draft.}}
+members of the Terena (or vice-versa). \mt{Looks like some labels are cut off; will fix in later draft.}}
 \label{fig:ModelSketch}
 \vspace{0.3em}
 {\centering \includegraphics{Figures/ModelSketch.pdf}
