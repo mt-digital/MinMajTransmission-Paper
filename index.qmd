@@ -1,0 +1,240 @@
+---
+title: "Predicting the effect of candidate interventions for mitigating disease spread in asymmetric-mixing metapopulations"
+author:
+  - name: Matthew A. Turner
+    affiliation: Department of Environmental Social Sciences, Stanford Doerr School of Sustainability, Stanford University
+    corresponding: true
+    email: maturner@stanford.edu
+  - name: Laís Albuquerque de Oliveira
+    affiliation: Health Sciences Research Laboratory, Federal University of Grande Dourados, Brazil
+  - name: Izabela Maurício de Rezende
+    affiliation: Stanford Pandemic Preparedness Hub, Stanford University School of Medicine
+  - name: Adam Z. Reynolds
+    affiliation: Department of Anthropology and Department of Internal Medicine, University of New Mexico
+  - name: James Holland Jones
+    affiliation: Department of Environmental Social Sciences, Stanford University
+  - name: Simone Simionatto
+    affiliation: Health Sciences Research Laboratory, Federal University of Grande Dourados, Brazil
+
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    fontsize: 11pt
+
+bibliography: ../library.bib
+csl: nature.csl
+---
+
+# Abstract
+
+If pandemic preparedness is to be truly successful it must also be equitable.
+Indigenous peoples and other minoritized groups suffered disproportionately during the COVID-19
+pandemic. In this work, we analyze an empirically motivated compartmental model of COVID-19 
+outbreaks in the Dourados Indigenous Reserve (Brazil) to develop strategies
+that could reduce the burden of future pandemics in the Reserve. Because experimental trials
+of real interventions are neither ethical nor possible during outbreaks, mechanistic
+models offer the only principled way to evaluate targeted preparedness strategies in advance.
+Here we integrate genomic surveillance data, a structured metapopulation model with asymmetric social mixing,
+and Bayesian model comparison to evaluate how different social-group definitions—by village, by Indigenous ethnicity, 
+or their cross-classification—explain the observed spread of B.1.1 and Zeta variants.  
+We then use this model to assess economic-aid interventions intended to reduce mobility between the Reserve and the nearby city of Dourados.
+Our results provide a quantitative foundation for equitable preparedness strategies that can be adapted to other
+Indigenous contexts where pandemic burdens remain unevenly distributed.
+
+---
+
+# Introduction
+
+To equitably prepare for pandemics, we must be able to **predict the effects of plausible interventions** before outbreaks occur. 
+COVID-19 highlighted the global inequities in disease burden—countries with greater economic inequality experienced more infections, 
+and Indigenous peoples across Brazil faced disproportionate impacts.  
+A clear example is the Dourados Indigenous Reserve in Mato Grosso do Sul, where nearly all residents live in 
+two adjacent villages—Bororó and Jaguapirú—and where mobility between the Reserve and the city of Dourados is 
+believed to have driven repeated introductions of SARS-CoV-2 variants.
+
+De Oliveira et al. (2023) sequenced SARS-CoV-2 genomes across the Reserve and showed distinct outbreak patterns across
+villages and ethnic groups (Guarani and Terena). They hypothesized that 
+variant diffusion was driven largely by mobility of young Indigenous men working or trading in the city.  
+This explanation is plausible but underspecified: multiple social structures—village residence, 
+Indigenous ethnicity, or a cross-classified mixture of both—could have shaped transmission.
+
+To resolve these ambiguities, we evaluate three competing hypotheses:
+
+1. **Village structure** primarily organizes social mixing and transmission.  
+2. **Ethnicity structure** is the dominant axis of interaction.  
+3. A **cross-classified village × ethnicity structure** is required to explain transmission.
+
+These structural hypotheses matter for intervention design. If village structure dominates, 
+aid should target mobility in the more exposed village; if ethnicity structure dominates, interventions should target specific 
+social networks; if the cross-classified model is required, preparedness plans must engage more granular subgroups.
+
+To adjudicate among these possibilities, we fit a mechanistic epidemiological model to the observed B.1.1 and Zeta outbreak curves,
+using **Bayesian inference via Hamiltonian Monte Carlo (HMC)**.  
+Posterior samples—“Stan chains”—show how strongly the data constrain model parameters and reveal whether different
+social structures are well supported or fundamentally underdetermined.  
+We then compute **marginal likelihoods** using **bridge sampling** to quantify support for each competing model.
+Finally, we use the best-supported model to evaluate mobility-reduction interventions that could be deployed 
+rapidly during future outbreaks.
+
+The approach illustrates how tools from Bayesian inference, model comparison, and mechanistic epidemiology 
+can be combined to support pandemic preparedness in Indigenous communities, where both data availability and equity considerations 
+demand careful, principled modeling.
+
+---
+
+# Methods
+
+## Data
+
+We use genomic surveillance data reported in de Oliveira et al. (2023), consisting of:
+
+- sampling dates,
+- Pangolin lineage calls (focusing on B.1.1 and Zeta),
+- village of residence (Bororó, Jaguapirú),
+- Indigenous ethnicity (Guarani, Guarani-Kaiowá, Guarani-Nhandeva, Terena).
+
+We aggregate cumulative infections by:
+
+- village,
+- ethnicity,
+- the four village × ethnicity subgroups.
+
+These curves exhibit staggered timing across groups (e.g., early increase in Guarani; later growth in Bororó), providing the empirical patterns 
+that must be explained by any plausible mechanistic model.
+
+---
+
+## Mechanistic model
+
+We use a structured SIR model with asymmetric mixing.  
+For each group $g$ we track susceptibles $S_g$, infectious individuals $I_g$, and recovered individuals $R_g$:
+
+$$
+\frac{dS_g}{dt} = -\tau\, m_g(t)\, S_g + r\,R_g
+$$
+
+$$
+\frac{dI_g}{dt} = \tau\, m_g(t)\, S_g - \rho\, I_g
+$$
+
+$$
+\frac{dR_g}{dt} = \rho\, I_g - r\,R_g.
+$$
+
+Here:
+
+- $\tau$ is the global transmission rate,
+- $\rho$ is the recovery rate,
+- $r$ is the reinfection rate (active only for Zeta),
+- $m_g(t)$ is the force of infection experienced by group $g$:
+
+$$
+m_g(t) = c_{gg}\,I_g(t)
+\;+\;
+\sum_{g' \neq g} c_{gg'}\,I_{g'}(t)
+\;+\;
+\gamma_g.
+$$
+
+Where:
+
+- $c_{gg}$ is the within-group contact rate,
+- $c_{gg'}$ is the asymmetric between-group contact rate,
+- $\gamma_g$ is the mobility-based importation rate from the city into group $g$.
+
+We compare three structural hypotheses:
+
+1. **Village model**: $g \in \{\text{Bororó}, \text{Jaguapirú}\}$
+2. **Ethnicity model**: $g \in \{\text{Guarani}, \text{Terena}\}$
+3. **Cross-classified model**: $g \in \{B/G, B/T, J/G, J/T\}$
+
+---
+
+## Bayesian inference with Stan
+
+We estimate all parameters using **Hamiltonian Monte Carlo (HMC)** via Stan.
+
+### Why “Stan chains” matter
+
+Each independent chain generates posterior samples for:
+
+- $c_{gg}, c_{gg'}$
+- $\gamma_g$
+- $\tau, \rho, r$
+- initial conditions $I_g(0)$
+
+Because HMC follows gradients of the posterior:
+
+- **well-behaved chains** (good mixing, same posterior region)  
+  → the data strongly identify parameters.
+
+- **chains exploring different regions**  
+  → multiple mechanistic explanations fit the data equally well  
+     → structural multimodality  
+     → model is underdetermined.
+
+- **elongated chain geometries**  
+  → ridges in the likelihood  
+  → poor identifiability of contact matrix or mobility parameters.
+
+Thus, Stan chains directly inform our research questions:  
+*Does the data support a village model, an ethnicity model, or both?*  
+*Are mixing parameters identifiable?*  
+*Does reinfection matter for explaining Zeta?*
+
+### Priors
+
+We use weakly regularizing priors on all parameters:
+
+- $\tau \sim \text{Normal}^+(0,1)$  
+- $\rho \sim \text{Normal}^+(0.3,0.2)$  
+- $r \sim \text{Normal}^+(0,0.5)$  
+- $\gamma_g \sim \text{Normal}^+(0,0.1)$  
+- $c_{gg'} \sim \text{Beta}(2,5)$  
+- $I_g(0) \sim \text{Normal}^+(0,0.01)$
+
+These priors prevent implausible epidemiological regimes while 
+allowing the data to determine the credible mixing structure.
+
+---
+
+## Model comparison via marginal likelihood
+
+For each model $M_k$, we compute the **marginal likelihood**:
+
+$$
+p(\text{data} \mid M_k)
+=
+\int p(\text{data} \mid \theta, M_k) \, p(\theta \mid M_k)\, d\theta.
+$$
+
+We approximate this using **bridge sampling**, which leverages the posterior samples 
+and avoids the high computational burden of thermodynamic integration.
+
+A model with:
+
+- better fit,  
+- fewer weakly identified directions,  
+- less reliance on prior volume  
+
+receives a higher marginal likelihood.
+
+Bayes factors comparing village, ethnicity, and cross-classified models determine 
+which social structure is most credibly supported by the outbreak data.
+
+---
+
+# Results
+
+*(To be filled in once model fits are run.)*
+
+---
+
+# Discussion
+
+*(Placeholder for your later revisions.)*
+
+---
+
+# References
