@@ -11,8 +11,6 @@ author:
     affiliation: Stanford Pandemic Preparedness Hub, Stanford University School of Medicine
   - name: Adam Z. Reynolds
     affiliation: Department of Anthropology and Department of Internal Medicine, University of New Mexico
-  - name: James Holland Jones
-    affiliation: Department of Environmental Social Sciences, Stanford University
   - name: Simone Simionatto
     affiliation: Health Sciences Research Laboratory, Federal University of Grande Dourados, Brazil
 
